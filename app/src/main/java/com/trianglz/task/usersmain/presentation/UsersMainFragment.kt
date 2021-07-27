@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.afollestad.materialdialogs.MaterialDialog
 import com.trianglz.task.R
+import com.trianglz.task.common.utils.ConnectivityUtils
 import com.trianglz.task.common.utils.Constants
 import com.trianglz.task.databinding.FragmentUsersMainBinding
 import com.trianglz.task.usersmain.presentation.adapter.UsersAdapter
+import com.trianglz.task.usersmain.presentation.models.ShimmerUserPresentationModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -63,18 +64,19 @@ class UsersMainFragment : DaggerFragment() {
         viewModel.usersList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
 
-            if (it.isNotEmpty()) {
+            if (!it.any { it is ShimmerUserPresentationModel }) {
                 binding.swipeToRefresh.isRefreshing = false
             }
         })
-
-
 
     }
 
     private fun initListeners() {
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.getUsers()
+            if(!ConnectivityUtils(requireContext()).isNetworkConnected){
+                binding.swipeToRefresh.isRefreshing=false
+            }
         }
     }
 
