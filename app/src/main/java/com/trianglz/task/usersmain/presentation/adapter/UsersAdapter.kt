@@ -51,26 +51,32 @@ class UsersAdapter @Inject constructor() :
 
     override fun getItemViewType(position: Int): Int {
 
-        if(getItem(position) is ShimmerUserPresentationModel)
+        if (getItem(position) is ShimmerUserPresentationModel)
             return R.layout.shimmer_item_user
         else
             return R.layout.item_user
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        when(viewType){
-              R.layout.shimmer_item_user ->{
-                  val binding = ShimmerItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                  return ShimmerViewHolder(binding)
-            }else->{
-            val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return MyViewHolder(binding)
+        when (viewType) {
+            R.layout.shimmer_item_user -> {
+                val binding = ShimmerItemUserBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return ShimmerViewHolder(binding)
+            }
+            else -> {
+                val binding =
+                    ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return MyViewHolder(binding)
             }
         }
     }
 
-    override fun onBindViewHolder(holder:  RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? MyViewHolder)?.bindViews(getItem(position) as UserDomainModel)
     }
 

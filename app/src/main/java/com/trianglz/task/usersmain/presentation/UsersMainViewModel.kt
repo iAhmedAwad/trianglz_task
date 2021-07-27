@@ -23,7 +23,8 @@ class UsersMainViewModel @Inject constructor(private val usersUseCase: GetUsersU
 
     fun getUsers() {
         viewModelScope.launch {
-            _usersList.postValue(listOf(ShimmerUserPresentationModel(),ShimmerUserPresentationModel(),ShimmerUserPresentationModel()))
+            _usersList.postValue(listOf(ShimmerUserPresentationModel(),ShimmerUserPresentationModel(),ShimmerUserPresentationModel()
+            , ShimmerUserPresentationModel(),ShimmerUserPresentationModel(),ShimmerUserPresentationModel(),ShimmerUserPresentationModel()))
 
             _usersList.postValue(usersUseCase.getUsers())
         }
