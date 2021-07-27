@@ -16,9 +16,6 @@ import retrofit2.Retrofit
 abstract class UserModule {
 
 
-    @UserMainScope
-    @Binds
-    abstract fun bindPopularMoviesRepo(userRepoImpl: UserRepoImpl): UsersRepo
 
 
     @Binds
@@ -27,12 +24,15 @@ abstract class UserModule {
     abstract fun bindMovieViewModel(viewModel: UsersMainViewModel): ViewModel
 
 
+    @UserMainScope
+    @Binds
+    abstract fun bindUserRepo(userRepoImpl: UserRepoImpl): UsersRepo
 
     companion object {
         @UserMainScope
         @Provides
 
-        fun getPopularMoviesService(
+        fun getUsersService(
             retrofit: Retrofit
         ): GetUsersService = retrofit.create(GetUsersService::class.java)
     }

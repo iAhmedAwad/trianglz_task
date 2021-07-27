@@ -13,12 +13,11 @@ import javax.inject.Inject
 class UsersAdapter @Inject constructor() :
     ListAdapter<UserDomainModel, UsersAdapter.MyViewHolder>(UserDiffUtil()) {
 
-    var itemClickedCallBack = { _: UserDomainModel? -> Unit }
+    var itemClickedCallBack = { _: Int -> Unit }
     private lateinit var binding: ItemUserBinding
 
 
-
-    class MyViewHolder(private val binding: ItemUserBinding) :
+   inner class MyViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindViews(userDomainModel: UserDomainModel) {
             binding.apply {
@@ -26,6 +25,9 @@ class UsersAdapter @Inject constructor() :
                 nameTv.text = userDomainModel.name
                 emailTv.text = userDomainModel.email
                 Glide.with(root.context).load(userDomainModel.imageUrl).into(imageView)
+                root.setOnClickListener {
+                    this@UsersAdapter.itemClickedCallBack.invoke(userDomainModel.id)
+                }
             }
 
         }

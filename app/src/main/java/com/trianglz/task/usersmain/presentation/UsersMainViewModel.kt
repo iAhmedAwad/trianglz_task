@@ -15,10 +15,6 @@ class UsersMainViewModel @Inject constructor(private val usersUseCase: GetUsersU
     val usersList: LiveData<List<UserDomainModel>>
         get() = _usersList
 
-    init {
-        getUsers()
-    }
-
     fun getUsers() {
         viewModelScope.launch {
             _usersList.postValue(emptyList())

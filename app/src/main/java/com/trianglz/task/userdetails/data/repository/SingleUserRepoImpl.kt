@@ -2,8 +2,8 @@ package com.trianglz.task.userdetails.data.repository
 
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.trianglz.task.common.utils.ErrorChannel
+import com.trianglz.task.userdetails.data.models.response.UserResponseModel
 import com.trianglz.task.userdetails.domain.repository.SingleUserRepo
-import com.trianglz.task.usersmain.data.models.UserDataModel
 import com.trianglz.task.usersmain.data.service.GetSingleUserService
 import com.trianglz.task.usersmain.data.toUserDomainModel
 import com.trianglz.task.usersmain.domain.models.UserDomainModel
@@ -13,11 +13,11 @@ class SingleUserRepoImpl @Inject constructor(private val getSingleUserService: G
 
     override suspend fun getUser(id: Int): UserDomainModel? {
 
-        val result: NetworkResponse<UserDataModel, String> = getSingleUserService.getUser(id)
+        val result: NetworkResponse<UserResponseModel, String> = getSingleUserService.getUser(id)
 
         when (result) {
             is NetworkResponse.Success -> {
-                return result.body.toUserDomainModel()
+                return result.body.data.toUserDomainModel()
             }
             is NetworkResponse.NetworkError -> {
                 ErrorChannel.emitErrors(result.error.message)

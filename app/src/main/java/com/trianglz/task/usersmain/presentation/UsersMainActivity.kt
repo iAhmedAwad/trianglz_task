@@ -7,7 +7,7 @@ import dagger.android.support.DaggerAppCompatActivity
 class UsersMainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_users_main)
+        setContentView(R.layout.activity_main)
     }
 }
 

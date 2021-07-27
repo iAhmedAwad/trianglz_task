@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.trianglz.task.R
+import com.trianglz.task.common.utils.Constants
 import com.trianglz.task.common.utils.ErrorChannel
 import com.trianglz.task.databinding.FragmentUsersMainBinding
 import com.trianglz.task.usersmain.presentation.adapter.UsersAdapter
@@ -50,6 +52,14 @@ class UsersMainFragment : DaggerFragment() {
         binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter = this@UsersMainFragment.adapter
+            this@UsersMainFragment.adapter.itemClickedCallBack = {
+                val navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+                val args = Bundle()
+                args.putInt(Constants.ID_KEY, it)
+                navController.navigate(
+                    R.id.userDetailedFragment, args
+                )
+            }
         }
         viewModel = ViewModelProvider(this, viewModelFactory).get(UsersMainViewModel::class.java)
 
