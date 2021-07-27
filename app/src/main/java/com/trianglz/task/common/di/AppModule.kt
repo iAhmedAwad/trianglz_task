@@ -1,10 +1,13 @@
 package com.trianglz.task.common.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.trianglz.task.common.di.viewmodel.DaggerViewModelFactory
 import com.trianglz.task.common.utils.Constants
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,12 +20,9 @@ import javax.inject.Singleton
 @Module
 abstract class AppModule {
 
-    /*
+
     @Binds
     abstract fun bindViewModelFactory(viewModelFactory: DaggerViewModelFactory): ViewModelProvider.Factory
-
-
-     */
 
 
     companion object {

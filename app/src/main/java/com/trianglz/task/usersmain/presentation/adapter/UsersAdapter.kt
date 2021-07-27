@@ -5,28 +5,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.training.movies_clean.databinding.ItemMovieBinding
-import com.training.movies_clean.movies.domain.models.MovieDomainModel
+import com.bumptech.glide.Glide
 import com.trianglz.task.databinding.ItemUserBinding
 import com.trianglz.task.usersmain.domain.models.UserDomainModel
 import javax.inject.Inject
 
-class MoviesAdapter @Inject constructor() : ListAdapter<UserDomainModel, MoviesAdapter.MyViewHolder>(MoviesDiffUtil()) {
+class UsersAdapter @Inject constructor() :
+    ListAdapter<UserDomainModel, UsersAdapter.MyViewHolder>(UserDiffUtil()) {
 
+    var itemClickedCallBack = { _: UserDomainModel? -> Unit }
     private lateinit var binding: ItemUserBinding
+
+
 
     class MyViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindViews(userDomainModel: UserDomainModel) {
-            binding.textViewMovieName.text = movieDomainModel.movieName
-            binding.textViewMovieId.text = movieDomainModel.movieId
+            binding.apply {
+
+                nameTv.text = userDomainModel.name
+                emailTv.text = userDomainModel.email
+                Glide.with(root.context).load(userDomainModel.imageUrl).into(imageView)
+            }
 
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -34,19 +41,19 @@ class MoviesAdapter @Inject constructor() : ListAdapter<UserDomainModel, MoviesA
         holder.bindViews(getItem(position))
     }
 
-    private class MoviesDiffUtil : DiffUtil.ItemCallback<MovieDomainModel>() {
+    private class UserDiffUtil : DiffUtil.ItemCallback<UserDomainModel>() {
         override fun areItemsTheSame(
-            oldItem: MovieDomainModel,
-            newItem: MovieDomainModel
+            oldItem: UserDomainModel,
+            newItem: UserDomainModel
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: MovieDomainModel,
-            newItem: MovieDomainModel
+            oldItem: UserDomainModel,
+            newItem: UserDomainModel
         ): Boolean {
-            return oldItem.movieId.equals(newItem.movieId) && oldItem.movieName.equals(newItem.movieName)
+            return oldItem.email == newItem.email
         }
 
     }

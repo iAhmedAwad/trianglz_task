@@ -5,13 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.trianglz.task.R
+import androidx.lifecycle.ViewModelProvider
+import com.trianglz.task.databinding.FragmentUsersMainBinding
+import javax.inject.Inject
 
 class UserDetailedFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = UserDetailedFragment()
-    }
+
+    private var _binding: FragmentUsersMainBinding? = null
+
+    private val binding get() = _binding!!
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     private lateinit var viewModel: UserDetailedViewModel
 
@@ -19,9 +26,10 @@ class UserDetailedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_detailed_fragment, container, false)
+        _binding = FragmentUsersMainBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
-
 
 
 }

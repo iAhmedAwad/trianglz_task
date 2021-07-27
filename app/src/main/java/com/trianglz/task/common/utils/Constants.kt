@@ -5,5 +5,8 @@ class Constants {
         const val BASE_URL = "https://reqres.in/api/"
         const val PAGE_NUMBER = "page"
         const val USERS_PATH = "users"
+        const val USER_PATH = "user/{id}"
+
+
     }
 }

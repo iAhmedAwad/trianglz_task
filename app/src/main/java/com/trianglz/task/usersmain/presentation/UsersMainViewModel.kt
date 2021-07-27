@@ -9,17 +9,20 @@ import com.trianglz.task.usersmain.domain.usecases.GetUsersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class UsersMainViewModel @Inject constructor(usersUseCase: GetUsersUseCase) : ViewModel() {
+class UsersMainViewModel @Inject constructor(private val usersUseCase: GetUsersUseCase) :
+    ViewModel() {
     private val _usersList: MutableLiveData<List<UserDomainModel>> = MutableLiveData()
     val usersList: LiveData<List<UserDomainModel>>
         get() = _usersList
 
     init {
-        getUsers(usersUseCase)
+        getUsers()
     }
 
-    private fun getUsers(usersUseCase: GetUsersUseCase) {
+    fun getUsers() {
         viewModelScope.launch {
+            _usersList.postValue(emptyList())
+
             _usersList.postValue(usersUseCase.getUsers())
         }
     }
