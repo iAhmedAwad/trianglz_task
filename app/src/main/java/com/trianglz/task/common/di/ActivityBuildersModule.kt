@@ -2,7 +2,7 @@ package com.trianglz.task.common.di
 
 import com.trianglz.task.userdetails.di.UserDetailedFragmentProviderModule
 import com.trianglz.task.usersmain.di.UserMainFragmentProviderModule
-import com.trianglz.task.usersmain.presentation.UsersMainActivity
+import com.trianglz.task.usersmain.presentation.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -14,6 +14,6 @@ abstract class ActivityBuildersModule {
         modules = [UserMainFragmentProviderModule::class,
             UserDetailedFragmentProviderModule::class]
     )
-    abstract fun contributeUsersMainActivity(): UsersMainActivity
+    abstract fun contributeUsersMainActivity(): MainActivity
 
 }

@@ -5,16 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.trianglz.task.R
 import com.trianglz.task.common.utils.Constants
-import com.trianglz.task.common.utils.ErrorChannel
 import com.trianglz.task.databinding.FragmentUsersMainBinding
 import com.trianglz.task.usersmain.presentation.adapter.UsersAdapter
 import dagger.android.support.DaggerFragment
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 
@@ -71,12 +68,7 @@ class UsersMainFragment : DaggerFragment() {
             }
         })
 
-        lifecycleScope.launchWhenResumed {
 
-            ErrorChannel.sharedFlow.collect {
-                showErrorDialog(it)
-            }
-        }
 
     }
 
@@ -86,13 +78,4 @@ class UsersMainFragment : DaggerFragment() {
         }
     }
 
-    private fun showErrorDialog(message: String): Unit {
-        val dialog = MaterialDialog(requireContext())
-            .title(R.string.error)
-            .message(text = message)
-            .icon(R.drawable.ic_error)
-            .positiveButton(R.string.ok) {
-            }
-        dialog.show()
-    }
 }
